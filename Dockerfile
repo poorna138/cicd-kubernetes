@@ -1,5 +1,5 @@
 FROM node:14
 WORKDIR /app
-COPY . .
+COPY . /app
 EXPOSE 3000
 CMD ["node", "app.js"]
