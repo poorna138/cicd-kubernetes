@@ -1,12 +1,10 @@
-FROM node:18
+FROM node:18 AS builder
 WORKDIR /app
-
-# Copy dependency files from myapp folder
-COPY myapp/package*.json ./
+COPY package*.json ./
 RUN npm install
+COPY . .
 
-# Copy the rest of the app
-COPY myapp/. .
-
-EXPOSE 3000
+FROM node:18-slim
+WORKDIR /app
+COPY --from=builder /app .
 CMD ["node", "app.js"]
